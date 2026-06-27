@@ -3,7 +3,7 @@ import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userDataContext } from "../context/userContext";
+import { UserDataContext } from "../context/UserContext";
 import axios from "axios";
 
 export default function SignUp() {
@@ -14,7 +14,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { serverUrl } = useContext(userDataContext);
+  const { serverUrl } = useContext(UserDataContext);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -28,6 +28,9 @@ export default function SignUp() {
       );
       console.log(result.data);
       setLoading(false)
+      setName("");
+      setEmail("");
+      setPassword("")
     } catch (error) {
       console.log(error);
       setLoading(false)

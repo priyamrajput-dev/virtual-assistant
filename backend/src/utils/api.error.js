@@ -17,6 +17,9 @@ class ApiError extends Error {
   static notfound(message = "Not Found") {
     return new ApiError(404, message);
   }
+  static internal(message = "Internal Server Error") {
+    return new ApiError(500, message);
+  }
 
 }
 

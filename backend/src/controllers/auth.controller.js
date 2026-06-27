@@ -3,7 +3,7 @@ import ApiError from "../utils/api.error.js";
 import ApiResponse from "../utils/api.response.js";
 import { clearCookie, setCookie } from "../utils/cookies.js";
 
-export const signUp = async (req, res) => {
+export const signUp = async (req, res, next) => {
   try {
     const { user, token } = await authService.signUp(req.body);
 
@@ -13,16 +13,11 @@ export const signUp = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.error(error);
-
-    return res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const signIn = async (req, res) => {
+export const signIn = async (req, res, next) => {
   try {
     const { user, token } = await authService.signIn(req.body);
 
@@ -32,26 +27,16 @@ export const signIn = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.error(error);
-
-    return res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+    next(error);
   }
 };
 
-export const logOut = (req, res) => {
+export const logOut = (req, res, next) => {
   try {
     clearCookie(res);
 
     return ApiResponse.ok(res, "User logged out successfully");
   } catch (error) {
-    console.error(error);
-
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-    });
+    next(error);
   }
 };

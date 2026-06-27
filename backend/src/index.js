@@ -2,8 +2,10 @@ import express from "express";
 import { connectDB } from "./config/db.js";
 import { ENV } from "./config/env.js";
 import cookieParser from "cookie-parser"
-import authRouter from "./routes/user.routes.js";
+import authRouter from "./routes/auth.routes.js";
 import cors from "cors"
+import errorHandler from "./middlewares/error.middleware.js";
+import userRouter from "./routes/user.route.js";
 
 const app = express();
 app.use(cors({
@@ -20,9 +22,13 @@ app.get("/", (req, res) => {
 app.get("/test", (req, res) => {
   res.json({ message: "Server working" });
 });
+
 //routes
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter)
 
+//error
+app.use(errorHandler);
 
 const startServer = async()=>{
     try {

@@ -3,7 +3,7 @@ import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userDataContext } from "../context/userContext";
+import { UserDataContext } from "../context/UserContext";
 import axios from "axios";
 
 export default function SignIn() {
@@ -13,7 +13,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const[loading, setLoading] =useState(false)
-  const { serverUrl } = useContext(userDataContext);
+  const { serverUrl } = useContext(UserDataContext);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -27,6 +27,8 @@ export default function SignIn() {
       );
       console.log(result.data);
       setLoading(false)
+      setEmail("");
+      setPassword("")
     } catch (error) {
       console.log(error);
       setLoading(false)
